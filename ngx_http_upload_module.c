@@ -1274,20 +1274,18 @@ static ngx_int_t ngx_http_upload_start_handler(ngx_http_upload_ctx_t *u) { /* {{
                         return NGX_UPLOAD_NOMEM;
                 }
 
-                state_file->name.len = state_path->name.len + 1 + state_path->len + u->session_id.len + sizeof(".state");
+                state_file->name.len = state_path->name.len + 1 + u->session_id.len + sizeof(".state");
                 state_file->name.data = ngx_palloc(u->request->pool, state_file->name.len + 1);
 
                 if(state_file->name.data == NULL)
                     return NGX_UPLOAD_NOMEM;
 
                 ngx_memcpy(state_file->name.data, state_path->name.data, state_path->name.len);
-                (void) ngx_sprintf(state_file->name.data + state_path->name.len + 1 + state_path->len,
-                        "%V.state%Z", &u->session_id);
-
-                ngx_create_hashed_filename(state_path, state_file->name.data, state_file->name.len);
+                (void) ngx_sprintf(state_file->name.data + state_path->name.len,
+                        "/%V.state%Z", &u->session_id);
 
                 ngx_log_debug1(NGX_LOG_DEBUG_CORE, file->log, 0,
-                               "hashed path of state file: %s", state_file->name.data);
+                               "path of state file: %s", state_file->name.data);
             }
 
             file->fd = ngx_open_file(file->name.data, NGX_FILE_WRONLY, NGX_FILE_CREATE_OR_OPEN, ulcf->store_access);
