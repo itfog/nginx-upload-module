@@ -1,5 +1,7 @@
 
-Documentation for this module could be found under following URL:
+Version with checking of the checksum for every uploaded chunk.
+
+Documentation for the 'root' module could be found under following URL:
 
   * English:
 
@@ -8,4 +10,3 @@ Documentation for this module could be found under following URL:
   * Russian:
 
     http://www.grid.net.ru/nginx/upload.ru.html
-
